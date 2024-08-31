@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, library_private_types_in_public_api, prefer_const_literals_to_create_immutables
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:starkbank/widget/expantion_tile_widget.dart';
 
@@ -16,24 +17,19 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _textController = TextEditingController();
-  final _messages = <Message>[];
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  void _sendMessage() {
+  void _sendMessage() async {
     if (_textController.text.isNotEmpty) {
-      setState(() {
-        _messages.add(Message(text: _textController.text, isMe: true));
-        _textController.clear();
-      });
-    }
-  }
+      //Fazer chamada na API para verificar sentimento
 
-  void _receiveMessage() {
-    setState(() {
-      _messages.add(Message(
-        text: 'Hello from another person!',
-        isMe: false,
-      ));
-    });
+      await firestore.collection('messages').add({
+        'sender': 'client',
+        'message': _textController.text,
+        'timestamp': FieldValue.serverTimestamp(),
+      });
+      _textController.clear();
+    }
   }
 
   void _showBottomSheet() {
@@ -41,64 +37,91 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       isScrollControlled: true,
       builder: (BuildContext context) {
-        return Container(
-          width: 400,
-          height: 400,
+        return Padding(
+          padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
               Expanded(
-                child: ListView.builder(
-                  itemCount: _messages.length,
-                  itemBuilder: (context, index) {
-                    return Align(
-                      alignment: _messages[index].isMe
-                          ? Alignment.centerRight
-                          : Alignment.centerLeft,
-                      child: Container(
-                        margin: EdgeInsets.all(10),
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color:
-                              _messages[index].isMe ? Colors.blue : Colors.grey,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Text(
-                          _messages[index].text,
-                          style: TextStyle(
-                            color: _messages[index].isMe
-                                ? Colors.white
-                                : Colors.white,
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: firestore
+                      .collection('messages')
+                      .orderBy('timestamp')
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return const Center(
+                          child: Text('Error loading messages'));
+                    }
+
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
+                    return ListView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        final message = snapshot.data!.docs[index];
+                        return Padding(
+                          padding: EdgeInsets.only(
+                            left: message['sender'] != 'client' ? 50 : 0,
+                            right: message['sender'] == 'client' ? 50 : 0,
                           ),
-                        ),
-                      ),
+                          child: Column(
+                            children: [
+                              Container(
+                                // padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: message['sender'] == 'client'
+                                      ? Colors.grey
+                                      : Colors.blue
+                                          .shade400, // Custom color for text bubble
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: ListTile(
+                                  title: Text(message['message']),
+                                  subtitle: Text(
+                                    DateTime.fromMillisecondsSinceEpoch(
+                                            message['timestamp'].seconds * 1000)
+                                        .toString(),
+                                  ),
+                                ),
+                              ),
+                              const Positioned(
+                                bottom: 4,
+                                right: 20,
+                                child: Text(
+                                  '😊',
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.yellow),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     );
                   },
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(50),
+                ),
                 child: Row(
                   children: [
                     Expanded(
                       child: TextField(
                         controller: _textController,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Type a message',
+                        decoration: const InputDecoration(
+                          hintText: 'Enter your message',
                         ),
                       ),
                     ),
-                    SizedBox(width: 10),
-                    FloatingActionButton(
-                      mini: true,
+                    IconButton(
                       onPressed: _sendMessage,
-                      child: Icon(Icons.send),
-                    ),
-                    SizedBox(width: 10),
-                    FloatingActionButton(
-                      mini: true,
-                      onPressed: _receiveMessage,
-                      child: Icon(Icons.add),
+                      icon: const Icon(Icons.send),
                     ),
                   ],
                 ),
