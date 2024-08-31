@@ -6,6 +6,7 @@ class HomeScreen extends StatefulWidget {
   static const String id = "home_screen";
   // ignore: prefer_const_constructors_in_immutables
   HomeScreen({super.key, });
+  
 
 
 
@@ -14,6 +15,163 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  
+
+  final _textController = TextEditingController();
+  final _messages = <Message>[];
+
+  void _sendMessage() {
+  if (_textController.text.isNotEmpty) {
+    setState(() {
+      _messages.add(Message(text: _textController.text, isMe: true));
+      _textController.clear();
+    });
+  }
+}
+void _receiveMessage() {
+    setState(() {
+      _messages.add(Message(
+        text: 'Hello from another person!',
+        isMe: false,
+      ));
+    });
+  }
+
+  void _showBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+    //   return Container(
+    //   width: 400,
+    //   height: 400,
+    //   decoration: BoxDecoration(
+    //     // border: Border.all(color: Colors.grey),
+    //     borderRadius: BorderRadius.circular(10),
+    //   ),
+    //   child: Column(
+    //     children: [
+    //       Expanded(
+    //         child: ListView.builder(
+    //           itemCount: _messages.length,
+    //           itemBuilder: (context, index) {
+    //             return ListTile(
+    //               title: Container(
+    //                 decoration: BoxDecoration(
+    //                   borderRadius: BorderRadius.circular(10)
+    //                 ),
+    //                 child: Text(
+    //                   _messages[index].text,  style: TextStyle(
+                        
+    //                       backgroundColor: _messages[index].isMe ? Colors.blue : Colors.red,
+    //                       color: Colors.white
+                          
+    //                     ),
+    //                   ),
+    //               ),
+    //                 trailing: _messages[index].isMe
+    //                     ? Text('You')
+    //                     : Text('Other'),
+    //             );
+    //           },
+    //         ),
+    //       ),
+    //       Padding(
+    //         padding: const EdgeInsets.all(10.0),
+    //         child: Row(
+    //           children: [
+    //             Expanded(
+    //               child: TextField(
+    //                 controller: _textController,
+    //                 decoration: InputDecoration(
+    //                   border: OutlineInputBorder(),
+    //                   hintText: 'Type a message',
+    //                 ),
+    //               ),
+    //             ),
+    //             SizedBox(width: 10),
+    //             ElevatedButton(
+    //               onPressed: _sendMessage,
+    //               child: Text('Send'),
+    //             ),
+    //           ],
+    //         ),
+    //       ),
+    //     ],
+    //   ),
+    // );
+    return Container(
+      width: 400,
+          height: 400,
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: _messages.length,
+                  itemBuilder: (context, index) {
+                    return Align(
+                      alignment: _messages[index].isMe
+                          ? Alignment.centerRight
+                          : Alignment.centerLeft,
+                      child: Container(
+                        margin: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: _messages[index].isMe
+                              ? Colors.blue
+                              : Colors.grey,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(
+                          _messages[index].text,
+                          style: TextStyle(
+                            color: _messages[index].isMe
+                                ? Colors.white
+                                : Colors.white,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: _textController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Type a message',
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    FloatingActionButton(
+                      mini: true,
+                      onPressed: _sendMessage,
+                      child: Icon(Icons.send),
+                    ),
+                    SizedBox(width: 10),
+                    FloatingActionButton(
+                      mini: true,
+                      onPressed: _receiveMessage,
+                      child: Icon(Icons.add),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -235,18 +393,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
+            
           ],
+          
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton:  FloatingActionButton(
         backgroundColor: Colors.blue,
         shape: CircleBorder(),
-        onPressed: () {
-          setState(() {
-          });
-        },
+        onPressed: _showBottomSheet,
         child: const Icon(Icons.navigation,color: Colors.white,),
       ),
+   
     );
   }
+}
+
+class Message {
+  final String text;
+  final bool isMe;
+
+  Message({required this.text, required this.isMe});
 }
