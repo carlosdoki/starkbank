@@ -72,9 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 // padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   color: message['sender'] == 'client'
-                                      ? Colors.grey
-                                      : Colors.blue
-                                          .shade400, // Custom color for text bubble
+                                      ? Color(0xFFBDC4C9)
+                                      : Color(
+                                          0xFF2692FF), // Custom color for text bubble
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                                 child: ListTile(
@@ -194,12 +194,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
                                       border:
-                                          Border.all(color: Colors.blueAccent)),
+                                          Border.all(color: Color(0xFF0070E0))),
                                   child: TextButton(
                                     onPressed: () {},
                                     child: Text(
                                       'Daily: 16/08/2024 - 15/09/2024',
-                                      style: TextStyle(color: Colors.blue),
+                                      style:
+                                          TextStyle(color: Color(0xFF0070E0)),
                                     ),
                                   ),
                                 ),
@@ -212,9 +213,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                         width: 80,
                                         height: 25,
                                         decoration: BoxDecoration(
-                                            border:
-                                                Border.all(color: Colors.blue),
-                                            color: Colors.blue),
+                                            border: Border.all(
+                                                color: Color(0xFF0070E0)),
+                                            color: Color(0xFF0070E0)),
                                         child: Center(
                                           child: Text(
                                             'Daily',
@@ -227,14 +228,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                         width: 80,
                                         height: 25,
                                         decoration: BoxDecoration(
-                                          border:
-                                              Border.all(color: Colors.blue),
+                                          border: Border.all(
+                                              color: Color(0xFF0070E0)),
                                         ),
                                         child: Center(
                                           child: Text(
                                             'Montly',
-                                            style:
-                                                TextStyle(color: Colors.blue),
+                                            style: TextStyle(
+                                                color: Color(0xFF0070E0)),
                                           ),
                                         ),
                                       ),
@@ -259,7 +260,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue,
+        backgroundColor: Color(0xFF0070E0),
         shape: CircleBorder(),
         onPressed: _showBottomSheet,
         child: const Icon(
