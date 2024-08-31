@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 
@@ -8,7 +8,7 @@ class StatementTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const ListTile(
-      title: Text('Statement'),
+      title: Text('Extrato'),
     );
   }
 }
@@ -19,7 +19,7 @@ class MembersTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const ListTile(
-      title: Text('Members'),
+      title: Text('Membros'),
     );
   }
 }
@@ -30,13 +30,13 @@ class InvestmentsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const ExpansionTile(
-      title: Text('Investments'),
+      title: Text('Investimentos'),
       children: [
         ListTile(
-          title: Text('My Investments'),
+          title: Text('Meus Investimentos'),
         ),
         ListTile(
-          title: Text('Accounting History'),
+          title: Text('Histórico Contábil'),
         ),
       ],
     );
@@ -49,13 +49,13 @@ class ReceivablesTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const ExpansionTile(
-      title: Text('Investments'),
+      title: Text('Recebimentos'),
       children: [
         ListTile(
-          title: Text('My Investments'),
+          title: Text('Invoices'),
         ),
         ListTile(
-          title: Text('Accounting History'),
+          title: Text('Boletos'),
         ),
       ],
     );
@@ -68,27 +68,27 @@ class CorporateCardTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      title: Text('Corporate Card'),
+      title: Text('Cartão Corporativo'),
       children: [
         ListTile(
-          title: Text('Overview'),
+          title: Text('Visão geral'),
           trailing: Container(
             padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
             decoration: BoxDecoration(
               color: Colors.green,
               borderRadius: BorderRadius.circular(16.0),
             ),
-            child: Text('NEW', style: TextStyle(color: Colors.white)),
+            child: Text('NOVO', style: TextStyle(color: Colors.white)),
           ),
         ),
         ListTile(
           title: Text('Analytics'),
         ),
         ListTile(
-          title: Text('Cards'),
+          title: Text('Cartões'),
         ),
         ListTile(
-          title: Text('Purchases'),
+          title: Text('Compras'),
         ),
         ListTile(
           title: Text('Hackathon Account 927903'),
@@ -105,10 +105,10 @@ class IntegrationsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      title: Text('Integrations'),
+      title: Text('Integrações'),
       children: const [
         ListTile(
-          title: Text('Projects'),
+          title: Text('Projetos'),
         ),
         ListTile(
           title: Text('Webhooks'),
@@ -124,10 +124,10 @@ class OperationsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      title: Text('Operations'),
+      title: Text('Consultas'),
       children: const [
         ListTile(
-          title: Text('Deposits'),
+          title: Text('Depósitos'),
         ),
         ListTile(
           title: Text('Invoices'),
@@ -136,22 +136,22 @@ class OperationsTile extends StatelessWidget {
           title: Text('Boletos'),
         ),
         ListTile(
-          title: Text('Card Acquiring'),
+          title: Text('Adquirência'),
         ),
         ListTile(
-          title: Text('Transfers'),
+          title: Text('Transferências'),
         ),
         ListTile(
-          title: Text('Tax Payments'),
+          title: Text('Pagamentos de Impostos'),
         ),
         ListTile(
-          title: Text('Utility Payments'),
+          title: Text('Pagamentos de Concessionárias'),
         ),
         ListTile(
-          title: Text('Boletos Payments'),
+          title: Text('Pagamentos de Boletos'),
         ),
         ListTile(
-          title: Text('QR Code Payments'),
+          title: Text('Pagamentos de QR Code '),
         ),
       ],
     );
@@ -164,8 +164,30 @@ class PayablesTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      title: Text('Payables'),
+      title: Text('Pagamentos'),
       children: const [],
+    );
+  }
+}
+
+class AccountTile extends StatelessWidget {
+  const AccountTile({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Divider(
+            color: Color(0xFFBDC4C9),
+          ),
+        ),
+        ListTile(
+          title: Text('Hackathon Account 927903'),
+          trailing: Icon(Icons.arrow_drop_down),
+        ),
+      ],
     );
   }
 }

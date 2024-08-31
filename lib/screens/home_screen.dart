@@ -115,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: TextField(
                         controller: _textController,
                         decoration: const InputDecoration(
-                          hintText: 'Enter your message',
+                          hintText: 'Como posso te ajudar hoje?',
                         ),
                       ),
                     ),
@@ -171,6 +171,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           IntegrationsTile(),
                           OperationsTile(),
                           PayablesTile(),
+                          SizedBox(
+                            height: 75,
+                          ),
+                          AccountTile(),
                         ],
                       ),
                     ),
@@ -181,32 +185,39 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Dashboard',
-                                style: TextStyle(
-                                    fontSize: 24.0,
-                                    fontWeight: FontWeight.bold)),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 25),
+                              child: Text('Dashboard',
+                                  style: TextStyle(
+                                      fontSize: 24.0,
+                                      fontWeight: FontWeight.bold)),
+                            ),
                             SizedBox(height: 20.0),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Container(
-                                  width: 250,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      border:
-                                          Border.all(color: Color(0xFF0070E0))),
-                                  child: TextButton(
-                                    onPressed: () {},
-                                    child: Text(
-                                      'Daily: 16/08/2024 - 15/09/2024',
-                                      style:
-                                          TextStyle(color: Color(0xFF0070E0)),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 25),
+                                  child: Container(
+                                    width: 250,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        border: Border.all(
+                                            color: Color(0xFF0070E0))),
+                                    child: TextButton(
+                                      onPressed: () {},
+                                      child: Text(
+                                        'Diário: 16/08/2024 - 15/09/2024',
+                                        style:
+                                            TextStyle(color: Color(0xFF0070E0)),
+                                      ),
                                     ),
                                   ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 27.5),
+                                      horizontal: 218),
                                   child: Row(
                                     children: [
                                       Container(
@@ -218,7 +229,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             color: Color(0xFF0070E0)),
                                         child: Center(
                                           child: Text(
-                                            'Daily',
+                                            'Diário',
                                             style:
                                                 TextStyle(color: Colors.white),
                                           ),
@@ -233,7 +244,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                         child: Center(
                                           child: Text(
-                                            'Montly',
+                                            'Mensal',
                                             style: TextStyle(
                                                 color: Color(0xFF0070E0)),
                                           ),
