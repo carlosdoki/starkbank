@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:starkbank/widget/expantion_tile_widget.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String id = "home_screen";
@@ -41,6 +42,25 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
+              Container(
+                height: 50,
+                width: double.maxFinite,
+                child: Center(
+                  child: Text(
+                    'Atendimento Stark',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
+                padding: EdgeInsets.only(
+                  bottom: 10,
+                ),
+              ),
+              Divider(
+                color: Color(0xFFBDC4C9),
+              ),
+              SizedBox(
+                height: 10,
+              ),
               Expanded(
                 child: StreamBuilder<QuerySnapshot>(
                   stream: firestore
@@ -63,8 +83,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         final message = snapshot.data!.docs[index];
                         return Padding(
                           padding: EdgeInsets.only(
-                            left: message['sender'] != 'client' ? 50 : 0,
-                            right: message['sender'] == 'client' ? 50 : 0,
+                            left: message['sender'] == 'client' ? 50 : 0,
+                            right: message['sender'] != 'client' ? 50 : 0,
                           ),
                           child: Column(
                             children: [
@@ -72,18 +92,30 @@ class _HomeScreenState extends State<HomeScreen> {
                                 // padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   color: message['sender'] == 'client'
-                                      ? Color(0xFFBDC4C9)
+                                      ? Color(0xFF2692FF)
                                       : Color(
-                                          0xFF2692FF), // Custom color for text bubble
-                                  borderRadius: BorderRadius.circular(15),
+                                          0xFFBDC4C9), // Custom color for text bubble
+                                  borderRadius: message['sender'] == 'client'
+                                      ? BorderRadius.only(
+                                          topLeft: Radius.circular(20),
+                                          bottomLeft: Radius.circular(20),
+                                          bottomRight: Radius.circular(20))
+                                      : BorderRadius.only(
+                                          topRight: Radius.circular(20),
+                                          bottomLeft: Radius.circular(20),
+                                          bottomRight: Radius.circular(20)),
                                 ),
                                 child: ListTile(
-                                  title: Text(message['message']),
-                                  subtitle: Text(
-                                    DateTime.fromMillisecondsSinceEpoch(
-                                            message['timestamp'].seconds * 1000)
-                                        .toString(),
+                                  trailing: Padding(
+                                    padding: const EdgeInsets.only(top: 12),
+                                    child: Text(
+                                      DateFormat('HH:mm').format(
+                                          DateTime.fromMillisecondsSinceEpoch(
+                                              message['timestamp'].seconds *
+                                                  1000)),
+                                    ),
                                   ),
+                                  title: Text(message['message']),
                                 ),
                               ),
                               const Positioned(
