@@ -1,35 +1,33 @@
-// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api
+// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:starkbank/widget/expantion_tile_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String id = "home_screen";
   // ignore: prefer_const_constructors_in_immutables
-  HomeScreen({super.key, });
-  
-
-
+  HomeScreen({
+    super.key,
+  });
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-  
-
   final _textController = TextEditingController();
   final _messages = <Message>[];
 
   void _sendMessage() {
-  if (_textController.text.isNotEmpty) {
-    setState(() {
-      _messages.add(Message(text: _textController.text, isMe: true));
-      _textController.clear();
-    });
+    if (_textController.text.isNotEmpty) {
+      setState(() {
+        _messages.add(Message(text: _textController.text, isMe: true));
+        _textController.clear();
+      });
+    }
   }
-}
-void _receiveMessage() {
+
+  void _receiveMessage() {
     setState(() {
       _messages.add(Message(
         text: 'Hello from another person!',
@@ -43,66 +41,8 @@ void _receiveMessage() {
       context: context,
       isScrollControlled: true,
       builder: (BuildContext context) {
-    //   return Container(
-    //   width: 400,
-    //   height: 400,
-    //   decoration: BoxDecoration(
-    //     // border: Border.all(color: Colors.grey),
-    //     borderRadius: BorderRadius.circular(10),
-    //   ),
-    //   child: Column(
-    //     children: [
-    //       Expanded(
-    //         child: ListView.builder(
-    //           itemCount: _messages.length,
-    //           itemBuilder: (context, index) {
-    //             return ListTile(
-    //               title: Container(
-    //                 decoration: BoxDecoration(
-    //                   borderRadius: BorderRadius.circular(10)
-    //                 ),
-    //                 child: Text(
-    //                   _messages[index].text,  style: TextStyle(
-                        
-    //                       backgroundColor: _messages[index].isMe ? Colors.blue : Colors.red,
-    //                       color: Colors.white
-                          
-    //                     ),
-    //                   ),
-    //               ),
-    //                 trailing: _messages[index].isMe
-    //                     ? Text('You')
-    //                     : Text('Other'),
-    //             );
-    //           },
-    //         ),
-    //       ),
-    //       Padding(
-    //         padding: const EdgeInsets.all(10.0),
-    //         child: Row(
-    //           children: [
-    //             Expanded(
-    //               child: TextField(
-    //                 controller: _textController,
-    //                 decoration: InputDecoration(
-    //                   border: OutlineInputBorder(),
-    //                   hintText: 'Type a message',
-    //                 ),
-    //               ),
-    //             ),
-    //             SizedBox(width: 10),
-    //             ElevatedButton(
-    //               onPressed: _sendMessage,
-    //               child: Text('Send'),
-    //             ),
-    //           ],
-    //         ),
-    //       ),
-    //     ],
-    //   ),
-    // );
-    return Container(
-      width: 400,
+        return Container(
+          width: 400,
           height: 400,
           child: Column(
             children: [
@@ -118,9 +58,8 @@ void _receiveMessage() {
                         margin: EdgeInsets.all(10),
                         padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: _messages[index].isMe
-                              ? Colors.blue
-                              : Colors.grey,
+                          color:
+                              _messages[index].isMe ? Colors.blue : Colors.grey,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Text(
@@ -171,7 +110,6 @@ void _receiveMessage() {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -193,117 +131,23 @@ void _receiveMessage() {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Padding(
-                            padding:  EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                            child: Image(image: AssetImage('assets/logo.png', ),
-                            height: 60,
-                            )// Replace with your actual logo
-                          ),
-                          const ListTile(
-                            title: Text('Statement'),
-                          ),
-                          const ListTile(
-                            title: Text('Members'),
-                          ),
-                          const ExpansionTile(
-                            title: Text('Investments'),
-                            children: [
-                              ListTile(
-                                title: Text('My Investments'),
-                              ),
-                              ListTile(
-                                title: Text('Accounting History'),
-                              ),
-                            ],
-                          ),
-                          const ExpansionTile(
-                            title: Text('Receivables'),
-                            children: [
-                              ListTile(
-                                title: Text('Invoices'),
-                              ),
-                              ListTile(
-                                title: Text('Boletos'),
-                              ),
-                            ],
-                          ),
-                          ExpansionTile(
-                            title:  Text('Corporate Card'),
-                            children: [
-                              ListTile(
-                                title:  Text('Overview'),
-                                trailing: Container(
-                                  padding:   EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                                  decoration: BoxDecoration(
-                                    color: Colors.green,
-                                    borderRadius: BorderRadius.circular(16.0),
-                                  ),
-                                  child:   Text('NEW', style: TextStyle(color: Colors.white)),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 6),
+                              child: Image(
+                                image: AssetImage(
+                                  'assets/logo.png',
                                 ),
+                                height: 60,
+                              ) // Replace with your actual logo
                               ),
-                              ListTile(
-                                title: Text('Analytics'),
-                              ),
-                              ListTile(
-                                title: Text('Cards'),
-                              ),
-                              ListTile(
-                                title: Text('Purchases'),
-                              ),
-                              ListTile(
-                                title: Text('Hackathon Account 927903'),
-                                trailing: Icon(Icons.arrow_drop_down),
-                              ),
-                            ],
-                          ),
-                          ExpansionTile(
-                            title:  Text('Integrations'),
-                            children: const [
-                              ListTile(
-                                title: Text('Projects'),
-                              ),
-                              ListTile(
-                                title: Text('Webhooks'),
-                              ),
-                              
-                            ],
-                          ),
-                          ExpansionTile(
-                            title:  Text('Operations'),
-                            children: const [
-                              ListTile(
-                                title: Text('Deposits'),
-                              ),
-                              ListTile(
-                                title: Text('Invoices'),
-                              ),
-                               ListTile(
-                                title: Text('Boletos'),
-                              ),
-                               ListTile(
-                                title: Text('Card Acquiring'),
-                              ),
-                               ListTile(
-                                title: Text('Transfers'),
-                              ),
-                               ListTile(
-                                title: Text('Tax Payments'),
-                              ),
-                              ListTile(
-                                title: Text('Utility Payments'),
-                              ),
-                              ListTile(
-                                title: Text('Boletos Payments'),
-                              ),
-                              ListTile(
-                                title: Text('QR Code Payments'),
-                              ),
-                            ],
-                          ),
-                          ExpansionTile(
-                            title:  Text('Payables'),
-                            children: const [
-                            ],
-                          ),
+                          StatementTile(),
+                          MembersTile(),
+                          InvestmentsTile(),
+                          ReceivablesTile(),
+                          CorporateCardTile(),
+                          IntegrationsTile(),
+                          OperationsTile(),
+                          PayablesTile(),
                         ],
                       ),
                     ),
@@ -314,7 +158,10 @@ void _receiveMessage() {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Dashboard', style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)),
+                            Text('Dashboard',
+                                style: TextStyle(
+                                    fontSize: 24.0,
+                                    fontWeight: FontWeight.bold)),
                             SizedBox(height: 20.0),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -322,89 +169,81 @@ void _receiveMessage() {
                                 Container(
                                   width: 250,
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    border: Border.all(color: Colors.blueAccent)
-                                  ),
+                                      borderRadius: BorderRadius.circular(5),
+                                      border:
+                                          Border.all(color: Colors.blueAccent)),
                                   child: TextButton(
-                                    onPressed: (){}, 
-                                    child: Text('Daily: 16/08/2024 - 15/09/2024',
-                                    style: TextStyle(color: Colors.blue),
+                                    onPressed: () {},
+                                    child: Text(
+                                      'Daily: 16/08/2024 - 15/09/2024',
+                                      style: TextStyle(color: Colors.blue),
                                     ),
-                                    ),
+                                  ),
                                 ),
-                                // ElevatedButton(
-                                 
-                                //   onPressed: () {},
-                                //   style: ElevatedButton.styleFrom(
-                                //     backgroundColor: Colors.white,
-                                //     shape: OvalBorder(),
-                                //     surfaceTintColor: Colors.blue,
-                                //     padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-                                //     textStyle: TextStyle(fontSize: 16.0),
-                                //   ),
-                                //   child: Text('Daily: 16/08/2024 - 15/09/2024', style: TextStyle(
-                                //     color: Colors.blue
-                                //   ),),
-                                // ),
-                                   Padding(
-                                     padding: const EdgeInsets.symmetric(horizontal: 27.5),
-                                     child: Row(
-                                      children: [
-                                        Container(
-                                          width: 80,
-                                          height: 25,
-                                          decoration: BoxDecoration(
-                                          border: Border.all(color: Colors.blue),
-                                          color: Colors.blue
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 27.5),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: 80,
+                                        height: 25,
+                                        decoration: BoxDecoration(
+                                            border:
+                                                Border.all(color: Colors.blue),
+                                            color: Colors.blue),
+                                        child: Center(
+                                          child: Text(
+                                            'Daily',
+                                            style:
+                                                TextStyle(color: Colors.white),
                                           ),
-                                          child: Center(
-                                            child: Text('Daily', style: TextStyle(
-                                              color: Colors.white
-                                            ),),
+                                        ),
+                                      ),
+                                      Container(
+                                        width: 80,
+                                        height: 25,
+                                        decoration: BoxDecoration(
+                                          border:
+                                              Border.all(color: Colors.blue),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            'Montly',
+                                            style:
+                                                TextStyle(color: Colors.blue),
                                           ),
-                                          ),
-                                            Container(
-                                          width: 80,
-                                          height: 25,
-                                          decoration: BoxDecoration(
-                                          border: Border.all(color: Colors.blue),
-                                          ),
-                                          child: Center(
-                                            child: Text('Montly', style: TextStyle(
-                                              color: Colors.blue
-                                            ),),
-                                          ),
-                                          ),
-                                      ],
-                                     ),
-                                   ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ],
                             ),
-                          SizedBox(height: 30),
-                          Image(
-                            image: AssetImage('assets/home_screen.png'),
-                            
-                          ),
+                            SizedBox(height: 30),
+                            Image(
+                              image: AssetImage('assets/home_screen.png'),
+                            ),
                           ],
                         ),
                       ),
                     ),
-                ],
+                  ],
                 ),
               ],
             ),
-            
           ],
-          
         ),
       ),
-      floatingActionButton:  FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue,
         shape: CircleBorder(),
         onPressed: _showBottomSheet,
-        child: const Icon(Icons.navigation,color: Colors.white,),
+        child: const Icon(
+          Icons.navigation,
+          color: Colors.white,
+        ),
       ),
-   
     );
   }
 }
