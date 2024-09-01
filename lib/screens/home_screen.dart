@@ -88,6 +88,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (context, index) {
                         final message = snapshot.data!.docs[index];
+                        final Timestamp timestamp =
+                            message['timestamp'] ?? Timestamp.now();
+                        DateTime dateTime = timestamp.toDate();
+                        String formattedTime =
+                            DateFormat('HH:mm').format(dateTime);
                         return Padding(
                           padding: EdgeInsets.only(
                             left: message['sender'] == 'client' ? 50 : 0,
@@ -135,13 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         trailing: Padding(
                                           padding:
                                               const EdgeInsets.only(top: 12),
-                                          child: Text(
-                                            DateFormat('HH:mm').format(DateTime
-                                                .fromMillisecondsSinceEpoch(
-                                                    message['timestamp']
-                                                            .seconds *
-                                                        1000)),
-                                          ),
+                                          child: Text(formattedTime),
                                         ),
                                         title: Text(message['message']),
                                       ),
