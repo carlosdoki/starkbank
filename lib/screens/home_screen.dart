@@ -21,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final _textController = TextEditingController();
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
+  final _scrollController = ScrollController();
   void _sendMessage() async {
     if (_textController.text.isNotEmpty) {
       //Fazer chamada na API para verificar sentimento
@@ -70,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: StreamBuilder<QuerySnapshot>(
                   stream: firestore
                       .collection('messages')
-                      .orderBy('timestamp')
+                      .orderBy('timestamp', descending: true)
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
@@ -81,8 +82,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(child: CircularProgressIndicator());
                     }
-
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      if (_scrollController.hasClients) {
+                        _scrollController.animateTo(
+                          0, // Scroll to the top of the reversed list
+                          duration: Duration.zero,
+                          curve: Curves.easeInOut,
+                        );
+                      }
+                    });
                     return ListView.builder(
+                      reverse: true,
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (context, index) {
                         final message = snapshot.data!.docs[index];
