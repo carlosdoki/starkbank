@@ -2,8 +2,10 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:starkbank/widget/date_text_widget.dart';
 import 'package:starkbank/widget/expantion_tile_widget.dart';
 import 'package:intl/intl.dart';
+import 'package:starkbank/widget/montly_and_daily_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String id = "home_screen";
@@ -252,61 +254,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 25),
-                                  child: Container(
-                                    width: 250,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        border: Border.all(
-                                            color: Color(0xFF0070E0))),
-                                    child: TextButton(
-                                      onPressed: () {},
-                                      child: Text(
-                                        'Diário: 16/08/2024 - 15/09/2024',
-                                        style:
-                                            TextStyle(color: Color(0xFF0070E0)),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 100),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        width: 80,
-                                        height: 25,
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Color(0xFF0070E0)),
-                                            color: Color(0xFF0070E0)),
-                                        child: Center(
-                                          child: Text(
-                                            'Diário',
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        width: 80,
-                                        height: 25,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: Color(0xFF0070E0)),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            'Mensal',
-                                            style: TextStyle(
-                                                color: Color(0xFF0070E0)),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                DateTextWidget(),
+                                MontlyAndDailyWidget(),
                               ],
                             ),
                             SizedBox(height: 30),
