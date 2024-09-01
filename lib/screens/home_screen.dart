@@ -340,7 +340,7 @@ class _HomeScreenState extends State<HomeScreen> {
         shape: CircleBorder(),
         onPressed: _showBottomSheet,
         child: const Icon(
-          Icons.navigation,
+          Icons.message,
           color: Colors.white,
         ),
       ),
