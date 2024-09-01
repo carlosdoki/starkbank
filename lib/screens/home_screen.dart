@@ -82,15 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(child: CircularProgressIndicator());
                     }
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      if (_scrollController.hasClients) {
-                        _scrollController.animateTo(
-                          0, // Scroll to the top of the reversed list
-                          duration: Duration.zero,
-                          curve: Curves.easeInOut,
-                        );
-                      }
-                    });
+
                     return ListView.builder(
                       reverse: true,
                       itemCount: snapshot.data!.docs.length,
