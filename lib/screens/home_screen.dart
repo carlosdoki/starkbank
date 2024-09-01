@@ -181,6 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         controller: _textController,
                         decoration: const InputDecoration(
                           hintText: 'Como posso te ajudar hoje?',
+                          border: InputBorder.none,
                         ),
                       ),
                     ),
