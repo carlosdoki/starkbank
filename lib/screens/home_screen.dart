@@ -36,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _showBottomSheet() {
     showModalBottomSheet(
+      backgroundColor: Color(0xFFF7F9FA),
       context: context,
       isScrollControlled: true,
       builder: (BuildContext context) {
@@ -90,41 +91,65 @@ class _HomeScreenState extends State<HomeScreen> {
                             left: message['sender'] == 'client' ? 50 : 0,
                             right: message['sender'] != 'client' ? 50 : 0,
                           ),
-                          child: Column(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                // padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  color: message['sender'] == 'client'
-                                      ? Color(0xFF2692FF)
-                                      : Color(
-                                          0xFFBDC4C9), // Custom color for text bubble
-                                  borderRadius: message['sender'] == 'client'
-                                      ? BorderRadius.only(
-                                          topLeft: Radius.circular(20),
-                                          bottomLeft: Radius.circular(20),
-                                          bottomRight: Radius.circular(20))
-                                      : BorderRadius.only(
-                                          topRight: Radius.circular(20),
-                                          bottomLeft: Radius.circular(20),
-                                          bottomRight: Radius.circular(20)),
-                                ),
-                                child: ListTile(
-                                  trailing: Padding(
-                                    padding: const EdgeInsets.only(top: 12),
-                                    child: Text(
-                                      DateFormat('HH:mm').format(
-                                          DateTime.fromMillisecondsSinceEpoch(
-                                              message['timestamp'].seconds *
-                                                  1000)),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(
+                                    30), // Change the border radius here
+                                child: message['sender'] != 'client'
+                                    ? Image(
+                                        image: AssetImage('assets/logo.png'),
+                                        width: 37,
+                                        height: 37,
+                                      )
+                                    : Container(),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      // padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        color: message['sender'] == 'client'
+                                            ? Color(0xFF2692FF)
+                                            : Color(
+                                                0xFFBDC4C9), // Custom color for text bubble
+                                        borderRadius: message['sender'] ==
+                                                'client'
+                                            ? BorderRadius.only(
+                                                topLeft: Radius.circular(20),
+                                                bottomLeft: Radius.circular(20),
+                                                bottomRight:
+                                                    Radius.circular(20))
+                                            : BorderRadius.only(
+                                                topRight: Radius.circular(20),
+                                                bottomLeft: Radius.circular(20),
+                                                bottomRight:
+                                                    Radius.circular(20)),
+                                      ),
+                                      child: ListTile(
+                                        trailing: Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 12),
+                                          child: Text(
+                                            DateFormat('HH:mm').format(DateTime
+                                                .fromMillisecondsSinceEpoch(
+                                                    message['timestamp']
+                                                            .seconds *
+                                                        1000)),
+                                          ),
+                                        ),
+                                        title: Text(message['message']),
+                                      ),
                                     ),
-                                  ),
-                                  title: Text(message['message']),
+                                    SizedBox(
+                                      height: 20,
+                                    )
+                                  ],
                                 ),
                               ),
-                              SizedBox(
-                                height: 20,
-                              )
                             ],
                           ),
                         );
