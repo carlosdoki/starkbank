@@ -21,7 +21,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final _textController = TextEditingController();
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  final _scrollController = ScrollController();
   void _sendMessage() async {
     if (_textController.text.isNotEmpty) {
       //Fazer chamada na API para verificar sentimento
