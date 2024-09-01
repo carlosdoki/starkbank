@@ -20,7 +20,6 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isSender = true;
   final _textController = TextEditingController();
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-
   void _sendMessage() async {
     if (_textController.text.isNotEmpty) {
       //Fazer chamada na API para verificar sentimento
@@ -251,7 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             SizedBox(height: 20.0),
                             Row(
-                              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Padding(
                                   padding: EdgeInsets.symmetric(horizontal: 25),
@@ -272,8 +271,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 218),
+                                  padding: const EdgeInsets.only(right: 100),
                                   child: Row(
                                     children: [
                                       Container(
