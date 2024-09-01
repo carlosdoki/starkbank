@@ -17,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool isSender = true;
   final _textController = TextEditingController();
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -121,15 +122,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   title: Text(message['message']),
                                 ),
                               ),
-                              const Positioned(
-                                bottom: 4,
-                                right: 20,
-                                child: Text(
-                                  '😊',
-                                  style: TextStyle(
-                                      fontSize: 20, color: Colors.yellow),
-                                ),
-                              ),
+                              SizedBox(
+                                height: 20,
+                              )
                             ],
                           ),
                         );
