@@ -313,14 +313,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             Image(
                               image: AssetImage('assets/home_screen.png'),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: SizedBox(
-                                width: 490,
-                                height: 300,
-                                child: Image(
-                                  image: AssetImage('assets/saldo.png'),
-                                ),
+                            SizedBox(
+                              width: 490,
+                              height: 300,
+                              child: Image(
+                                image: AssetImage('assets/saldo.png'),
                               ),
                             ),
                           ],
