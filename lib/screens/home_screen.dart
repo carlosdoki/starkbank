@@ -30,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
         'sender': 'client',
         'message': _textController.text,
         'timestamp': FieldValue.serverTimestamp(),
+        'sentiment': ''
       });
       _textController.clear();
     }
